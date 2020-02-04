@@ -11,5 +11,5 @@ def Sp_Opdracht_2():
             break
     print("Je eerste index verschil zit op " + str(c))
 
-print("baguette")
+
 Sp_Opdracht_2()
