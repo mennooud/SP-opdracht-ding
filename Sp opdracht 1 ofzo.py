@@ -27,5 +27,3 @@ i = 1
 while i != a:
     print(" "*(i)+"*"*(a-i))
     i += 1
-
-print("Done")
