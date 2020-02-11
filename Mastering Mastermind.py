@@ -1,9 +1,9 @@
 import random
 
 def start():
-    wie = input("Wil je zelf gokken of de pc laten gokken?").lower()
+    wie = input("Wil je zelf gokken of de pc laten gokken?: ").lower()
     if wie == ("pc"):
-        print("Not yet")
+        menscode()
     else:
         if wie == ("zelf"):
             randomcode()
@@ -14,22 +14,8 @@ def randomcode():
     code = []
     while len(code) != 4:
         randomkleur = random.randint(1, 6)
-        if randomkleur == 1:
-            code.append("wit")
-        else:
-            if randomkleur == 2:
-                code.append("zwart")
-            else:
-                if randomkleur == 3:
-                    code.append("rood")
-                else:
-                    if randomkleur == 4:
-                        code.append("blauw")
-                    else:
-                        if randomkleur == 5:
-                            code.append("geel")
-                        else:
-                            code.append("groen")
+        kleurdict = {1 : "wit", 2 : "zwart", 3 : "rood", 4 : "blauw", 5 : "geel", 6 : "groen"}
+        code.append(kleurdict[randomkleur])
     print(code)
     gok(code)
 
@@ -69,6 +55,18 @@ def gok(code):
             poging += 1
     start()
 
+def menscode():
+    botcode = []
+    b = len(botcode)
+    while b != 3:
+        b = len(botcode)
+        kleur = (input("Wat is code kleur " + str(b + 1) + "?: "))
+        kleurdict = {'wit' : 1, 'zwart' : 2, "rood" : 3, "blauw" : 4, "geel" : 5, "groen" : 6}
+        try:
+            botcode.append(kleurdict[kleur])
+        except KeyError:
+            print("Deze kleur zit niet in de game")
+    print(botcode)
 
 
 
