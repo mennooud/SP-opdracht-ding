@@ -10,4 +10,5 @@ def Fibonaci(FibonaciA, Rotatie, Lijst):
         Lijst[0], Lijst[1] = Lijst[1], Lijst[0] + Lijst[1]
         Rotatie += 1
         Fibonaci(FibonaciA, Rotatie, Lijst)
+
 vraag()
