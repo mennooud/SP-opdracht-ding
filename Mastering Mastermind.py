@@ -10,6 +10,7 @@ def start():
         else:
             start()
 
+
 def randomcode():
     code = []
     while len(code) != 4:
