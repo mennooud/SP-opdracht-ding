@@ -28,7 +28,11 @@ def gok(code):
             print("Laatste kans")
         hint = []
         gok = []
+        gebruikt = []
         b = len(gok)
+        zwartepin = 0
+        wittepin = 0
+        aanpascode = code
         while b != 3:
             b = len(gok)
             gok.append(input("Gok kleur "+ str(b+1) + ": "))
@@ -36,16 +40,23 @@ def gok(code):
             print("Gefeliciteerd")
             break
         else:
-            c = len(hint)
-            while c != 3:
-                c = len(hint)
-                if code[c] == gok[c].lower():
-                    hint.append("zwarte pin")
-                else:
-                    if gok[c] in code:
-                        hint.append("witte pin")
-                    else:
-                        hint.append("geen pin")
+            while zwartepin != 3:
+                if aanpascode[zwartepin] == gok[zwartepin].lower():
+                    aanpascode[zwartepin] = 'gebruikt'
+                    hint.append('zwarte pin')
+                zwartepin += 1
+            while wittepin != 3:
+                if gok[wittepin] in aanpascode:
+                    aanpas = int(aanpascode.index(gok[wittepin]))
+                    aanpascode[aanpas] = 'gebruikt'
+                    hint.append('witte pin')
+                wittepin += 1
+            if len(hint) < 4:
+                aantalleeg = 4 - len(hint)
+                while aantalleeg > 0:
+                    hint.append('geen pin')
+                    aantalleeg -= 1
+
 
             if mode == ('easy'):
                 print(hint)
