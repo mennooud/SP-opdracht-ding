@@ -1,5 +1,9 @@
 import random
 
+#Ik weet niet hoe ik verder kom met hetgeen wat ik al heb, als in ik weet niet hoe ik de beste keuze voor de pc nu moet laten uitrekenen. Ook weet ik niet hoe ik met de zwarte pins precies moet werken.
+#Heeft u hier een tip voor of iets waardoor ik weer verder kan?
+
+
 def start():
     wie = input("Wil je zelf gokken of de pc laten gokken?: ").lower()
     if wie == ("pc"):
@@ -153,6 +157,8 @@ def eengoed(mogelijk, gok, j):
 
 
 def eenfunctienaam(mogelijk, hint, gok):
+    gokstring = ''.join(map(str, gok))
+    mogelijk.remove(gokstring)
     if sum(hint) == 3:
         j = 0
         return driegoed(mogelijk, gok, j)
@@ -164,16 +170,6 @@ def eenfunctienaam(mogelijk, hint, gok):
             if sum(hint) == 1:
                 j = 0
                 return eengoed(mogelijk, gok, j)
-
-    #j = 0
-    #print(len(mogelijk))
-    #while j != len(mogelijk):
-    #    a = mogelijk[j].find('1')
-    #    if a != -1:
-    #        mogelijk.pop(j)
-    #        eenfunctienaam(mogelijk)
-    #    j += 1
-    #return mogelijk
 
 def botstart(code, gok):
     poging = 0
@@ -192,19 +188,18 @@ def botstart(code, gok):
             lengtehint += 1
         lengtehint = 0
         while lengtehint != 3:
+            print(lengtehint)
             if gok[lengtehint] in code:
-                if aanpascode[lengtehint] == 99:
-                    continue
-                else:
+                if aanpascode[lengtehint] != 99:
                     aanpas = int(aanpascode.index(nieuw[lengtehint]))
                     aanpascode[aanpas] = 'gebruikt'
                     hint[1] = hint[1] + 1
+#                else:
+#                    aanpas = int(aanpascode.index(nieuw[lengtehint]))
+#                    aanpascode[aanpas] = 'gebruikt'
+#                    hint[1] = hint[1] + 1
             lengtehint += 1
         poging += 1
         return hint
-
-
-
-menscode()
 
 start()
