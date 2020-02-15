@@ -10,7 +10,6 @@ def start():
         else:
             start()
 
-
 def randomcode():
     code = []
     while len(code) != 4:
@@ -29,7 +28,6 @@ def gok(code):
             print("Laatste kans")
         hint = []
         gok = []
-        gebruikt = []
         b = len(gok)
         zwartepin = 0
         wittepin = 0
@@ -78,11 +76,135 @@ def menscode():
             botcode.append(kleurdict[kleur])
         except KeyError:
             print("Deze kleur zit niet in de game")
-    print(botcode)
+    gok = [1, 1, 2, 2]
+    mogelijk = createans()
+    hint = botstart(botcode, gok)
+    mogelijk = eenfunctienaam(mogelijk, hint, gok)
+    print(mogelijk)
+
+def createans():
+    possibleans = []
+    for i in range(1111, 6667):
+        answer = str(i)
+        if '7' in answer or '8' in answer or '9' in answer or '0' in answer:
+            continue
+        else:
+            possibleans.append(answer)
+    print(possibleans)
+    return possibleans
+
+def driegoed(mogelijk, gok, j):
+    try:
+        while j < len(mogelijk):
+            e = []
+            e.append(mogelijk[j].find(str(gok[0])))
+            e.append(mogelijk[j].find(str(gok[1])))
+            e.append(mogelijk[j].find(str(gok[2])))
+            e.append(mogelijk[j].find(str(gok[3])))
+            e.sort()
+            if e[0] == -1 and e[1] == -1:
+                mogelijk.pop(j)
+                driegoed(mogelijk, gok, j)
+            j += 1
+    except RecursionError:
+        print(mogelijk)
+    except IndexError:
+        print(mogelijk)
+    return mogelijk
+
+def tweegoed(mogelijk, gok, j):
+    try:
+        while j < len(mogelijk):
+            e = []
+            e.append(mogelijk[j].find(str(gok[0])))
+            e.append(mogelijk[j].find(str(gok[1])))
+            e.append(mogelijk[j].find(str(gok[2])))
+            e.append(mogelijk[j].find(str(gok[3])))
+            e.sort()
+            if e[0] == -1 and e[1] == -1 and e[2] == -1:
+                mogelijk.pop(j)
+                driegoed(mogelijk, gok, j)
+            j += 1
+    except RecursionError:
+        print(mogelijk)
+    except IndexError:
+        print(mogelijk)
+    return mogelijk
+
+def eengoed(mogelijk, gok, j):
+    try:
+        while j < len(mogelijk):
+            e = []
+            e.append(mogelijk[j].find(str(gok[0])))
+            e.append(mogelijk[j].find(str(gok[1])))
+            e.append(mogelijk[j].find(str(gok[2])))
+            e.append(mogelijk[j].find(str(gok[3])))
+            e.sort()
+            if sum(e) == -4:
+                mogelijk.pop(j)
+                driegoed(mogelijk, gok, j)
+            j += 1
+    except RecursionError:
+        return mogelijk
+    except IndexError:
+        return mogelijk
+    return mogelijk
 
 
 
+def eenfunctienaam(mogelijk, hint, gok):
+    if sum(hint) == 3:
+        j = 0
+        return driegoed(mogelijk, gok, j)
+    else:
+        if sum(hint) == 2:
+            j = 0
+            return tweegoed(mogelijk, gok, j)
+        else:
+            if sum(hint) == 1:
+                j = 0
+                return eengoed(mogelijk, gok, j)
+
+    #j = 0
+    #print(len(mogelijk))
+    #while j != len(mogelijk):
+    #    a = mogelijk[j].find('1')
+    #    if a != -1:
+    #        mogelijk.pop(j)
+    #        eenfunctienaam(mogelijk)
+    #    j += 1
+    #return mogelijk
+
+def botstart(code, gok):
+    poging = 0
+    nieuw = [0, 0, 0, 0]
+    hint = [0, 0]
+    lengtehint = 0
+    aanpascode = [0, 0, 0, 0]
+    if nieuw == code:
+        print("Gefeliciteerd")
+    else:
+        while lengtehint != 3:
+            if code[lengtehint] == gok[lengtehint]:
+                nieuw[lengtehint] = 1
+                aanpascode[lengtehint] = 99
+                hint[0] = hint[0] + 1
+            lengtehint += 1
+        lengtehint = 0
+        while lengtehint != 3:
+            if gok[lengtehint] in code:
+                if aanpascode[lengtehint] == 99:
+                    continue
+                else:
+                    aanpas = int(aanpascode.index(nieuw[lengtehint]))
+                    aanpascode[aanpas] = 'gebruikt'
+                    hint[1] = hint[1] + 1
+            lengtehint += 1
+        poging += 1
+        return hint
 
 
+
+menscode()
 
 start()
