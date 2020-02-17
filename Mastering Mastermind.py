@@ -115,6 +115,7 @@ def viergoed(mogelijk, gok, j):
             j -= 1
         else:
             j += 1
+
     print(mogelijk)
     #j = 0
     #while j != len(mogelijk):
