@@ -105,59 +105,65 @@ def createans():
 def viergoed(mogelijk, gok, j):
     while j < len(mogelijk):
         e = []
-        z = mogelijk[j]
-        e.append(z.find(str(gok[0])))
-        if e != -1:
-            slicedz1 = z[4:]
-            slicedz2 = z[:3]
-            z = slicedz2 + '9' + slicedz1
-        e.append(z.find(str(gok[1])))
-        if e != -1:
-            slicedz1 = z[4:]
-            slicedz2 = z[:3]
-            z = slicedz2 + '9' + slicedz1
-        e.append(z.find(str(gok[2])))
-        if e != -1:
-            slicedz1 = z[4:]
-            slicedz2 = z[:3]
-            z = slicedz2 + '9' + slicedz1
-        e.append(z.find(str(gok[3])))
-        if e != -1:
-            slicedz1 = z[4:]
-            slicedz2 = z[:3]
-            z = slicedz2 + '9' + slicedz1
+        e.append(mogelijk[j].find(str(gok[0])))
+        e.append(mogelijk[j].find(str(gok[1])))
+        e.append(mogelijk[j].find(str(gok[2])))
+        e.append(mogelijk[j].find(str(gok[3])))
         e.sort()
-        print(e)
         if e[0] == -1:
-            print("deze e verwijdert ie")
             mogelijk.pop(j)
             j -= 1
         else:
             j += 1
-    if '6' not in gok:
-        for woord in mogelijk:
-            if '6' in woord:
-                mogelijk.remove(woord)
-    if '5' not in gok:
-        for woord in mogelijk:
-            if '5' in woord:
-                mogelijk.remove(woord)
-    if '4' not in gok:
-        for woord in mogelijk:
-            if '4' in woord:
-                mogelijk.remove(woord)
-    if '3' not in gok:
-        for woord in mogelijk:
-            if '3' in woord:
-                mogelijk.remove(woord)
-    if '2' not in gok:
-        for woord in mogelijk:
-            if '2' in woord:
-                mogelijk.remove(woord)
-    if '1' not in gok:
-        for woord in mogelijk:
-            if '1' in woord:
-                mogelijk.remove(woord)
+    print(mogelijk)
+    #j = 0
+    #while j != len(mogelijk):
+    #    goed = 0
+    #    test = mogelijk[j]
+    #    for letter in test:
+    #        jj = 0
+    #        while jj != 4:
+    #            print(letter, gok[jj])
+    #            if letter == gok[jj]:
+    #                goed += 1
+    #            jj += 1
+    #    if goed != 4:
+    #        print(test)
+    #        mogelijk.remove(test)
+    #    else:
+    #        j += 1
+    #for woord in mogelijk:
+    #    test = woord
+    #    for letter in woord:
+    #        if letter not in gok:
+    #            print(test)
+    #            mogelijk.remove(test)
+    print(mogelijk)
+    #if '6' not in gok:
+    #    for woord in mogelijk:
+    #        if '6' in woord:
+    #            mogelijk.remove(woord)
+    #if '5' not in gok:
+    #    for woord in mogelijk:
+    #        if '5' in woord:
+    #            mogelijk.remove(woord)
+    #if '4' not in gok:
+    #    for woord in mogelijk:
+    #        if '4' in woord:
+    #            mogelijk.remove(woord)
+    #if '3' not in gok:
+    #    for woord in mogelijk:
+    #        if '3' in woord:
+    #            mogelijk.remove(woord)
+    #if '2' not in gok:
+    #    for woord in mogelijk:
+    #        if '2' in woord:
+    #            mogelijk.remove(woord)
+    #if '1' not in gok:
+    #    for woord in mogelijk:
+    #        if '1' in woord:
+    #            mogelijk.remove(woord)
+    print(mogelijk)
     return mogelijk
 
 def driegoed(mogelijk, gok, j):
@@ -218,6 +224,7 @@ def nulgoed(mogelijk, gok, j, nieuw):
 
 def eenfunctienaam(mogelijk, hint, gok):
     gokstring = ''.join(map(str, gok))
+    print(gokstring)
     mogelijk.remove(gokstring)
     if sum(hint) == 4:
         j = 0
@@ -240,6 +247,7 @@ def eenfunctienaam(mogelijk, hint, gok):
                         nieuw = []
                         nieuw = nulgoed(mogelijk, gok, j, nieuw)
     print(hint)
+    print(nieuw)
     if hint != [0,0]:
         j = 0
         nieuw = verbeterdefeedback(nieuw, gok, j, hint)
@@ -250,7 +258,6 @@ def eenfunctienaam(mogelijk, hint, gok):
 
 def wittepins(nieuw, gok, j, hint):
     while j != len(nieuw):
-        print('yeeeeeeeey')
         woord = nieuw[j]
         teller = 0
         if str(gok[0]) in woord and str(gok[0]) != woord[0]:
@@ -261,7 +268,6 @@ def wittepins(nieuw, gok, j, hint):
             teller += 1
         if str(gok[3]) in woord and str(gok[3]) != woord[3]:
             teller += 1
-        print('TELLEEEEEEEEEEEER ' + str(teller))
         if teller == 4:
             j += 1
         else:
@@ -270,6 +276,7 @@ def wittepins(nieuw, gok, j, hint):
     return nieuw
 
 def verbeterdefeedback(nieuw, gok, j, hint):
+    print(nieuw)
     while j != len(nieuw):
         woord = nieuw[j]
         teller = 0
