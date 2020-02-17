@@ -80,11 +80,16 @@ def menscode():
             botcode.append(kleurdict[kleur])
         except KeyError:
             print("Deze kleur zit niet in de game")
-    gok = [1, 1, 2, 2]
+    gok = [1, 1, 2, 3]
     mogelijk = createans()
     hint = botstart(botcode, gok)
-    mogelijk = eenfunctienaam(mogelijk, hint, gok)
-    print(mogelijk)
+    if hint == [4, 0]:
+        print('Gefelicteerd')
+        start()
+    else:
+        mogelijk = eenfunctienaam(mogelijk, hint, gok)
+        print(mogelijk)
+        print(len(mogelijk))
 
 def createans():
     possibleans = []
@@ -97,79 +102,191 @@ def createans():
     print(possibleans)
     return possibleans
 
-def driegoed(mogelijk, gok, j):
-    try:
-        while j < len(mogelijk):
-            e = []
-            e.append(mogelijk[j].find(str(gok[0])))
-            e.append(mogelijk[j].find(str(gok[1])))
-            e.append(mogelijk[j].find(str(gok[2])))
-            e.append(mogelijk[j].find(str(gok[3])))
-            e.sort()
-            if e[0] == -1 and e[1] == -1:
-                mogelijk.pop(j)
-                driegoed(mogelijk, gok, j)
+def viergoed(mogelijk, gok, j):
+    while j < len(mogelijk):
+        e = []
+        z = mogelijk[j]
+        e.append(z.find(str(gok[0])))
+        if e != -1:
+            slicedz1 = z[4:]
+            slicedz2 = z[:3]
+            z = slicedz2 + '9' + slicedz1
+        e.append(z.find(str(gok[1])))
+        if e != -1:
+            slicedz1 = z[4:]
+            slicedz2 = z[:3]
+            z = slicedz2 + '9' + slicedz1
+        e.append(z.find(str(gok[2])))
+        if e != -1:
+            slicedz1 = z[4:]
+            slicedz2 = z[:3]
+            z = slicedz2 + '9' + slicedz1
+        e.append(z.find(str(gok[3])))
+        if e != -1:
+            slicedz1 = z[4:]
+            slicedz2 = z[:3]
+            z = slicedz2 + '9' + slicedz1
+        e.sort()
+        print(e)
+        if e[0] == -1:
+            print("deze e verwijdert ie")
+            mogelijk.pop(j)
+            j -= 1
+        else:
             j += 1
-    except RecursionError:
-        print(mogelijk)
-    except IndexError:
-        print(mogelijk)
+    if '6' not in gok:
+        for woord in mogelijk:
+            if '6' in woord:
+                mogelijk.remove(woord)
+    if '5' not in gok:
+        for woord in mogelijk:
+            if '5' in woord:
+                mogelijk.remove(woord)
+    if '4' not in gok:
+        for woord in mogelijk:
+            if '4' in woord:
+                mogelijk.remove(woord)
+    if '3' not in gok:
+        for woord in mogelijk:
+            if '3' in woord:
+                mogelijk.remove(woord)
+    if '2' not in gok:
+        for woord in mogelijk:
+            if '2' in woord:
+                mogelijk.remove(woord)
+    if '1' not in gok:
+        for woord in mogelijk:
+            if '1' in woord:
+                mogelijk.remove(woord)
+    return mogelijk
+
+def driegoed(mogelijk, gok, j):
+    while j < len(mogelijk):
+        e = []
+        e.append(mogelijk[j].find(str(gok[0])))
+        e.append(mogelijk[j].find(str(gok[1])))
+        e.append(mogelijk[j].find(str(gok[2])))
+        e.append(mogelijk[j].find(str(gok[3])))
+        e.sort()
+        if e[0] == -1 and e[1] == -1:
+            mogelijk.pop(j)
+            j -= 1
+        j += 1
     return mogelijk
 
 def tweegoed(mogelijk, gok, j):
-    try:
-        while j < len(mogelijk):
-            e = []
-            e.append(mogelijk[j].find(str(gok[0])))
-            e.append(mogelijk[j].find(str(gok[1])))
-            e.append(mogelijk[j].find(str(gok[2])))
-            e.append(mogelijk[j].find(str(gok[3])))
-            e.sort()
-            if e[0] == -1 and e[1] == -1 and e[2] == -1:
-                mogelijk.pop(j)
-                driegoed(mogelijk, gok, j)
-            j += 1
-    except RecursionError:
-        print(mogelijk)
-    except IndexError:
-        print(mogelijk)
+    while j < len(mogelijk):
+        e = []
+        e.append(mogelijk[j].find(str(gok[0])))
+        e.append(mogelijk[j].find(str(gok[1])))
+        e.append(mogelijk[j].find(str(gok[2])))
+        e.append(mogelijk[j].find(str(gok[3])))
+        e.sort()
+        if e[0] == -1 and e[1] == -1 and e[2] == -1:
+            mogelijk.pop(j)
+            j -= 1
+        j += 1
     return mogelijk
 
 def eengoed(mogelijk, gok, j):
-    try:
-        while j < len(mogelijk):
-            e = []
-            e.append(mogelijk[j].find(str(gok[0])))
-            e.append(mogelijk[j].find(str(gok[1])))
-            e.append(mogelijk[j].find(str(gok[2])))
-            e.append(mogelijk[j].find(str(gok[3])))
-            e.sort()
-            if sum(e) == -4:
-                mogelijk.pop(j)
-                driegoed(mogelijk, gok, j)
-            j += 1
-    except RecursionError:
-        return mogelijk
-    except IndexError:
-        return mogelijk
+    while j < len(mogelijk):
+        e = []
+        e.append(mogelijk[j].find(str(gok[0])))
+        e.append(mogelijk[j].find(str(gok[1])))
+        e.append(mogelijk[j].find(str(gok[2])))
+        e.append(mogelijk[j].find(str(gok[3])))
+        e.sort()
+        if sum(e) == -4:
+            mogelijk.pop(j)
+            j -= 1
+        j += 1
     return mogelijk
 
+def nulgoed(mogelijk, gok, j, nieuw):
+    while j < len(mogelijk):
+        e = []
+        e.append(mogelijk[j].find(str(gok[0])))
+        e.append(mogelijk[j].find(str(gok[1])))
+        e.append(mogelijk[j].find(str(gok[2])))
+        e.append(mogelijk[j].find(str(gok[3])))
+        e.sort()
+        if sum(e) == -4:
+            nieuw.append(j)
+        j += 1
+    return nieuw
 
 
 def eenfunctienaam(mogelijk, hint, gok):
     gokstring = ''.join(map(str, gok))
     mogelijk.remove(gokstring)
-    if sum(hint) == 3:
+    if sum(hint) == 4:
         j = 0
-        return driegoed(mogelijk, gok, j)
+        nieuw = viergoed(mogelijk, gok, j)
     else:
-        if sum(hint) == 2:
+        if sum(hint) == 3:
             j = 0
-            return tweegoed(mogelijk, gok, j)
+            nieuw = driegoed(mogelijk, gok, j)
         else:
-            if sum(hint) == 1:
+            if sum(hint) == 2:
                 j = 0
-                return eengoed(mogelijk, gok, j)
+                nieuw = tweegoed(mogelijk, gok, j)
+            else:
+                if sum(hint) == 1:
+                    j = 0
+                    nieuw = eengoed(mogelijk, gok, j)
+                else:
+                    if sum(hint) == 0:
+                        j = 0
+                        nieuw = []
+                        nieuw = nulgoed(mogelijk, gok, j, nieuw)
+    print(hint)
+    if hint != [0,0]:
+        j = 0
+        nieuw = verbeterdefeedback(nieuw, gok, j, hint)
+        print(len(nieuw))
+        j = 0
+        nieuw = wittepins(nieuw, gok, j, hint)
+    return nieuw
+
+def wittepins(nieuw, gok, j, hint):
+    while j != len(nieuw):
+        print('yeeeeeeeey')
+        woord = nieuw[j]
+        teller = 0
+        if str(gok[0]) in woord and str(gok[0]) != woord[0]:
+            teller += 1
+        if str(gok[1]) in woord and str(gok[1]) != woord[1]:
+            teller += 1
+        if str(gok[2]) in woord and str(gok[2]) != woord[2]:
+            teller += 1
+        if str(gok[3]) in woord and str(gok[3]) != woord[3]:
+            teller += 1
+        print('TELLEEEEEEEEEEEER ' + str(teller))
+        if teller == 4:
+            j += 1
+        else:
+            nieuw.remove(woord)
+            verbeterdefeedback(nieuw, gok, j, hint)
+    return nieuw
+
+def verbeterdefeedback(nieuw, gok, j, hint):
+    while j != len(nieuw):
+        woord = nieuw[j]
+        teller = 0
+        if str(gok[0]) == woord[0]:
+            teller += 1
+        if str(gok[1]) == woord[1]:
+            teller += 1
+        if str(gok[2]) == woord[2]:
+            teller += 1
+        if str(gok[3]) == woord[3]:
+            teller += 1
+        if teller == hint[0]:
+            j += 1
+        else:
+            nieuw.remove(woord)
+            verbeterdefeedback(nieuw, gok, j, hint)
+    return nieuw
 
 def botstart(code, gok):
     poging = 0
@@ -177,29 +294,26 @@ def botstart(code, gok):
     hint = [0, 0]
     lengtehint = 0
     aanpascode = [0, 0, 0, 0]
-    if nieuw == code:
-        print("Gefeliciteerd")
-    else:
-        while lengtehint != 3:
-            if code[lengtehint] == gok[lengtehint]:
-                nieuw[lengtehint] = 1
-                aanpascode[lengtehint] = 99
-                hint[0] = hint[0] + 1
-            lengtehint += 1
-        lengtehint = 0
-        while lengtehint != 3:
-            print(lengtehint)
-            if gok[lengtehint] in code:
-                if aanpascode[lengtehint] != 99:
-                    aanpas = int(aanpascode.index(nieuw[lengtehint]))
-                    aanpascode[aanpas] = 'gebruikt'
-                    hint[1] = hint[1] + 1
-#                else:
-#                    aanpas = int(aanpascode.index(nieuw[lengtehint]))
-#                    aanpascode[aanpas] = 'gebruikt'
-#                    hint[1] = hint[1] + 1
-            lengtehint += 1
-        poging += 1
-        return hint
+    while lengtehint != 4:
+        if code[lengtehint] == gok[lengtehint]:
+            nieuw[lengtehint] = 1
+            aanpascode[lengtehint] = 99
+            hint[0] = hint[0] + 1
+        lengtehint += 1
+    lengtehint = 0
+    while lengtehint != 4:
+        print(lengtehint)
+        if gok[lengtehint] in code:
+            if aanpascode[lengtehint] != 99:
+                aanpas = int(aanpascode.index(nieuw[lengtehint]))
+                aanpascode[aanpas] = 'gebruikt'
+                hint[1] = hint[1] + 1
+#               else:
+#                   aanpas = int(aanpascode.index(nieuw[lengtehint]))
+#                   aanpascode[aanpas] = 'gebruikt'
+#                   hint[1] = hint[1] + 1
+        lengtehint += 1
+    poging += 1
+    return hint
 
 start()
