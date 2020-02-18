@@ -5,7 +5,7 @@ import random
 
 
 def start():
-    wie = input("Wil je zelf gokken of de pc laten gokken?: ").lower()
+    wie = input("Wil je zelf gokken of de pc laten gokken?: ").lower()   # defineer invoer: user/computer
     if wie == ("pc"):
         menscode()
     else:
