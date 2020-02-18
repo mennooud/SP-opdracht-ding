@@ -122,6 +122,7 @@ def eenfunctienaam(mogelijk, code):
                 print('game over')
 
 
+
     #print(hint)
     #gokstring = ''.join(map(str, gok))
     #mogelijk.remove(gokstring)
