@@ -100,6 +100,7 @@ def eenfunctienaam(mogelijk, code):
     attempts = 0
 
     while lives > 0:
+        print(mogelijk)
         gok = mogelijk[0]
         print(gok)
         feedback = botstart(code, gok)
@@ -116,78 +117,11 @@ def eenfunctienaam(mogelijk, code):
         if code == gok:
             print('gevonden')
             print(attempts)
-            exit()
+            break
         else:
             if lives == 0:
                 print('game over')
-
-    #print(hint)
-    #gokstring = ''.join(map(str, gok))
-    #mogelijk.remove(gokstring)
-    #if sum(hint) == 4:
-    #    j = 0
-    #    nieuw = viergoed(mogelijk, gok, j)
-    #else:
-    #    if sum(hint) == 3:
-    #        j = 0
-    #        nieuw = driegoed(mogelijk, gok, j)
-    #    else:
-    #        if sum(hint) == 2:
-    #            j = 0
-    #            nieuw = tweegoed(mogelijk, gok, j)
-    #        else:
-    #            if sum(hint) == 1:
-    #                j = 0
-    #                nieuw = eengoed(mogelijk, gok, j)
-    #            else:
-    #                if sum(hint) == 0:
-    #                    j = 0
-    #                    nieuw = []
-    #                    nieuw = nulgoed(mogelijk, gok, j, nieuw)
-    #if hint != [0,0]:
-    #    j = 0
-    #    nieuw = verbeterdefeedback(nieuw, gok, j, hint)
-    #    j = 0
-    #    nieuw = wittepins(nieuw, gok, j, hint)
-    #return nieuw
-
-def wittepins(nieuw, gok, j, hint):
-    while j != len(nieuw):
-        woord = nieuw[j]
-        teller = 0
-        if str(gok[0]) in woord and str(gok[0]) != woord[0]:
-            teller += 1
-        if str(gok[1]) in woord and str(gok[1]) != woord[1]:
-            teller += 1
-        if str(gok[2]) in woord and str(gok[2]) != woord[2]:
-            teller += 1
-        if str(gok[3]) in woord and str(gok[3]) != woord[3]:
-            teller += 1
-        if teller == 4:
-            j += 1
-        else:
-            nieuw.remove(woord)
-            verbeterdefeedback(nieuw, gok, j, hint)
-    return nieuw
-
-def verbeterdefeedback(nieuw, gok, j, hint):
-    while j != len(nieuw):
-        woord = nieuw[j]
-        teller = 0
-        if str(gok[0]) == woord[0]:
-            teller += 1
-        if str(gok[1]) == woord[1]:
-            teller += 1
-        if str(gok[2]) == woord[2]:
-            teller += 1
-        if str(gok[3]) == woord[3]:
-            teller += 1
-        if teller == hint[0]:
-            j += 1
-        else:
-            nieuw.remove(woord)
-            verbeterdefeedback(nieuw, gok, j, hint)
-    return nieuw
+    start()
 
 def botstart(strcode, gok):
     code = []
@@ -199,6 +133,8 @@ def botstart(strcode, gok):
     aanpascode = [0, 0, 0, 0]
     while lengtehint != 4:
         if code[lengtehint] == int(gok[lengtehint]):
+            print(code[lengtehint])
+            print(gok[lengtehint])
             nieuw[lengtehint] = 1
             aanpascode[lengtehint] = 99
             hint[0] = hint[0] + 1
@@ -212,20 +148,15 @@ def botstart(strcode, gok):
                 hint[1] += 1
                 aanpascode[int(gok[lengtehint])-1] = 9
         lengtehint += 1
-    #print(hint)
-        #if gok[lengtehint] in code:
-        #    if aanpascode[lengtehint] != 99:
-        #        aanpas = int(aanpascode.index(nieuw[lengtehint]))
-        #        print(aanpas)
-#
-        #        aanpascode[aanpas] = 99
-        #        print(hint, gok[lengtehint])
-        #        hint[1] = hint[1] + 1
-#       #        else:
-#       #            aanpas = int(aanpascode.index(nieuw[lengtehint]))
-#       #            aanpascode[aanpas] = 'gebruikt'
-#       #            hint[1] = hint[1] + 1
-        #lengtehint += 1
+    print(hint)
     return hint
+
+#code = []
+#code.append(input('getal'))
+#code.append(input('getal'))
+#code.append(input('getal'))
+#code.append(input('getal'))
+#strcode = '1134'
+#botstart(strcode, code)
 
 start()
