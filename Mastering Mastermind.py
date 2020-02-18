@@ -121,8 +121,6 @@ def eenfunctienaam(mogelijk, code):
             if lives == 0:
                 print('game over')
 
-
-
     #print(hint)
     #gokstring = ''.join(map(str, gok))
     #mogelijk.remove(gokstring)
